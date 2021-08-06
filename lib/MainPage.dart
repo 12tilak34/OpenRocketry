@@ -1,7 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:open_rocketry/admob.dart';
 import 'package:open_rocketry/const.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class DetailsScreen extends StatelessWidget {
+class DetailsScreen extends StatefulWidget {
+  @override
+  _DetailsScreenState createState() => _DetailsScreenState();
+}
+
+class _DetailsScreenState extends State<DetailsScreen> {
+  late BannerAd _ad;
+  bool isloading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _ad = BannerAd(
+      size: AdSize.fullBanner,
+      adUnitId: AdHelper.bannerAdUnitId,
+      listener: BannerAdListener(
+        onAdLoaded: (_) {
+          setState(() {
+            isloading = true;
+          });
+        },
+        onAdFailedToLoad: (_, error) {
+          print("FAILED: $error");
+        },
+      ),
+      request: AdRequest(),
+    );
+    Future<void>.delayed(Duration(seconds: 1), ()=> _ad.load());
+  }
+
+  @override
+  void dispose(){
+    _ad.dispose();
+    super.dispose();
+  }
+
+  Widget checkforad() {
+    if (isloading == true) {
+      return Container(
+        child: AdWidget(ad: _ad),
+        width: _ad.size.width.toDouble(),
+        height: _ad.size.height.toDouble(),
+        alignment: Alignment.center,
+      );
+    } else {
+      return CircularProgressIndicator();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -34,7 +85,7 @@ class DetailsScreen extends StatelessWidget {
                       size: size,
                     )),
                 Padding(
-                  padding: EdgeInsets.only(top: size.height * .48 - 20),
+                  padding: EdgeInsets.only(top: size.height * .48 - 20,left: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -71,69 +122,71 @@ class DetailsScreen extends StatelessWidget {
                       ChapterCard(
                         name: "Software",
                         chapterNumber: 6,
-                        tag: "Computation,Analysis,Rocket Controls",
+                        tag: "Computation,Linux,Rocket Controls",
                         press: () => Navigator.pushNamed(context, '/eighth'),
                       ),
                       ChapterCard(
-                        name: "HardWare",
-                        chapterNumber: 7,
-                        tag: "",
-                        press: () => Navigator.pushNamed(context, '/ninth'),
-                      ),
-                      ChapterCard(
                         name: "Sensor Systems",
-                        chapterNumber: 8,
-                        tag: "",
+                        chapterNumber: 7,
+                        tag: "Pressure,magnetic,Liquid Sensors,GNC",
                         press: () => Navigator.pushNamed(context, '/ten'),
                       ),
                       ChapterCard(
-                        name: "Flight Mechanics",
-                        chapterNumber: 9,
-                        tag: "",
+                        name: "Aerodynamics",
+                        chapterNumber: 8,
+                        tag: "Lift off,Rigid Body Dynamics",
                         press: () => Navigator.pushNamed(context, '/eleventh'),
                       ),
                       ChapterCard(
                         name: "Operating Environment",
-                        chapterNumber: 10,
+                        chapterNumber: 9,
                         tag: "Environment in space,earth vs launch",
                         press: () => Navigator.pushNamed(context, '/twelveth'),
                       ),
                       ChapterCard(
-                        name: "Performance Analysis",
-                        chapterNumber: 11,
-                        tag: "",
-                        press: () => Navigator.pushNamed(context, '/thirteen'),
-                      ),
-                      ChapterCard(
                         name: "Structures And Materials",
-                        chapterNumber: 12,
-                        tag: "",
+                        chapterNumber: 10,
+                        tag: "Alloys,Strength,Properties,Geometry",
                         press: () => Navigator.pushNamed(context, '/fourteen'),
                       ),
                       ChapterCard(
                         name: "Communication Systems",
-                        chapterNumber: 13,
-                        tag: "",
+                        chapterNumber: 11,
+                        tag: "DSN,LCRD,Electromagnetic Waves",
                         press: () => Navigator.pushNamed(context, '/seventeen'),
                       ),
                       ChapterCard(
-                        name: "GNC",
-                        chapterNumber: 14,
-                        tag: "",
-                        press: () => Navigator.pushNamed(context, '/fifteen'),
-                      ),
-                      ChapterCard(
                         name: "WHAT'S NEXT...",
-                        chapterNumber: 15,
-                        tag: "",
+                        chapterNumber: 12,
+                        tag: "Let's Talk More About This",
                         press: () => Navigator.pushNamed(context, '/sixteen'),
                       ),
                       SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20,),
+                        child: Container(
+                          child: InkWell(
+                            child: Text(
+                              "      Search_me_tilak(CLICK)",
+                              style: kwordstyles,
+                            ),
+                            onTap: () => launch(
+                                "https://www.instagram.com/search_me_tilak"),
+                          ),
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              alignment: Alignment.bottomLeft,
+                              image: AssetImage("assets/images/instagram.jpg"),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ],
             ),
+            checkforad(),
           ],
         ),
       ),
@@ -232,7 +285,7 @@ class BookInfo extends StatelessWidget {
                   padding: EdgeInsets.only(top: 0),
                   child: Text(
                     "“RESILIENCE RISES! NOT EVEN GRAVITY CONTAINS HUMANITY WHEN WE EXPLORE AS ONE FOR ALL”",
-                    style: TextStyle(fontSize: 25,fontWeight: FontWeight.w900),
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
                   ),
                 ),
               ],

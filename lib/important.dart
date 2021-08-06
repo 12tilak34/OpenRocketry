@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:open_rocketry/const.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class important extends StatelessWidget {
   const important({Key? key}) : super(key: key);
@@ -26,8 +27,7 @@ class important extends StatelessWidget {
                 ),
               ),
             ),
-            Text(
-                "-------------------------------------------------------------------------------------------"),
+            Text("-------------------------------------------------------------------------------------------"),
             Padding(
               padding: const EdgeInsets.all(10),
               child: Text(
@@ -77,6 +77,13 @@ class important extends StatelessWidget {
                 style: kalpastyle,
               ),
             ),
+            Text("-------------------------------------------------------------------------------------------"),
+            SizedBox(height: 10,),
+            InkWell(child: Text("MATH IS FUN (CLICK)",style: klinkstyle,),onTap: ()=> launch("https://www.mathsisfun.com"),),
+            Text("-------------------------------------------------------------------------------------------"),
+            InkWell(child: Text("PHYSICS IS FUN (CLICK)",style: klinkstyle,),onTap: ()=> launch("www.physicsisfun.net"),),
+            SizedBox(height: 10,),
+            Text("-------------------------------------------------------------------------------------------"),
           ],
         ),
       ),

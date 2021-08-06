@@ -4,16 +4,12 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:open_rocketry/FlashScreen.dart';
 import 'package:open_rocketry/Glossary.dart';
 import 'package:open_rocketry/MainPage.dart';
-import 'package:open_rocketry/OverView.dart';
 import 'package:open_rocketry/TimeLine.dart';
 import 'package:open_rocketry/communicationsystems.dart';
 import 'package:open_rocketry/flightmechanics.dart';
-import 'package:open_rocketry/gnc.dart';
-import 'package:open_rocketry/hardware.dart';
 import 'package:open_rocketry/important.dart';
 import 'package:open_rocketry/missionsystem.dart';
 import 'package:open_rocketry/operatingenv.dart';
-import 'package:open_rocketry/performanceanalysis.dart';
 import 'package:open_rocketry/robotics.dart';
 import 'package:open_rocketry/rocketlanuchsystem.dart';
 import 'package:open_rocketry/rocketpropulsion.dart';
@@ -48,13 +44,10 @@ class MyApp extends StatelessWidget {
         '/sixth': (context) => RocketPropulsion(),
         '/seventh': (context) => Robotics(),
         '/eighth': (context) => Software(),
-        '/ninth': (context) => Hardware(),
         '/ten': (context) => SensorSystems(),
         '/eleventh': (context) => FlightMechanics(),
         '/twelveth': (context) => OperatingEnv(),
-        '/thirteen': (context) => PerformanceAnalysis(),
         '/fourteen': (context) => StructureAndMaterials(),
-        '/fifteen': (context) => GNC(),
         '/sixteen': (context) => WhatsNext(),
         '/seventeen': (context) => CommunicationSystems(),
       },
@@ -74,24 +67,23 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           bottom: TabBar(tabs: [
             Tab(text: "Explore",icon: Icon(Icons.explore,),),
             Tab(text: "TimeLine",icon: Icon(Icons.timeline),),
             Tab(text: "Glossary",icon: Icon(Icons.info),),
-            Tab(text: "OverView",icon: Icon(Icons.bookmark),),
           ],),
-          backgroundColor:Colors.amber,
+          backgroundColor:Colors.redAccent,
           title: Center(
             child: Text(
               "OpenRocketry",
-              style: TextStyle(color: Colors.black, fontFamily: 'awesome',fontSize: 22),
+              style: TextStyle(color: Colors.greenAccent, fontFamily: 'awesome',fontSize: 22),
             ),
           ),
         ),
-        body: TabBarView(children: [DetailsScreen(),TimeLinePage(),Glossary(),OverView()],),
+        body: TabBarView(children: [DetailsScreen(),TimeLinePage(),Glossary()],),
       ),
     );
   }

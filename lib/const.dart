@@ -9,6 +9,9 @@ final ktimeline = TextStyle(fontWeight: FontWeight.w600, fontSize: 18);
 final ktimeword = TextStyle(fontSize: 15,fontWeight: FontWeight.w500);
 final ktitle = TextStyle(fontSize: 20,fontWeight: FontWeight.w600);
 final ktiles = TextStyle(fontWeight: FontWeight.w800, fontSize: 22);
+final kwordstyles = TextStyle(fontWeight: FontWeight.w900, fontSize: 26,color: Colors.amber,fontStyle: FontStyle.italic);
+final klinkstyle = TextStyle(fontWeight: FontWeight.w600, fontSize: 18,color: Colors.blueAccent,fontStyle: FontStyle.italic);
+
 
 const kBlackColor = Color(0xFF393939);
 const kLightBlackColor = Color(0xFF8F8F8F);
